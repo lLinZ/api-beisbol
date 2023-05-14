@@ -30,7 +30,7 @@ class RoleController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return ['status' => false, 'errors' => $validator->errors()];
+            return response()->json(['status' => false, 'errors' => $validator->errors()], 400);
         }
         $role = Role::create([
             'description' => $request->description,

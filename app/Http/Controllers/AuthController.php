@@ -33,7 +33,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json(['status' => false, 'errors' => $validator->errors()], 400);
         }
 
         $user = User::create([
@@ -72,7 +72,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return ['status' => false, 'errors' => $validator->errors()];
+            return response()->json(['status' => false, 'errors' => $validator->errors()], 400);
         }
         $user = User::create([
             'name' => $request->name,
@@ -108,7 +108,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return ['status' => false, 'errors' => $validator->errors()];
+            return response()->json(['status' => false, 'errors' => $validator->errors()], 400);
         }
         $user = User::create([
             'name' => $request->name,
