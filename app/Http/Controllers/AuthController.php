@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,7 +52,7 @@ class AuthController extends Controller
         $token = $user->createToken("auth_token")->plainTextToken;
         return response()->json(['data' => $user, 'access_token' => $token, 'token_type' => 'Bearer',]);
     }
-    public function registerAsPlayer(Request $request)
+    public function register_player(Request $request)
     {
         if ($request->has('image')) {
             $image = $request->image;
@@ -76,6 +77,7 @@ class AuthController extends Controller
         }
         $user = User::create([
             'name' => $request->name,
+            'lastname' => $request->lastname,
             'email' => $request->email,
             'phone' => $request->phone,
             'photo' => $image_name,
@@ -87,7 +89,7 @@ class AuthController extends Controller
         $token = $user->createToken("auth_token")->plainTextToken;
         return response()->json(['data' => $user, 'access_token' => $token, 'token_type' => 'Bearer',]);
     }
-    public function registerAsAdmin(Request $request)
+    public function register_admin(Request $request)
     {
         if ($request->has('image')) {
             $image = $request->image;
@@ -106,12 +108,13 @@ class AuthController extends Controller
             'short_address' => 'required|string|max:255',
             'password' => 'required|string|min:8',
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json(['status' => false, 'errors' => $validator->errors()], 400);
         }
         $user = User::create([
             'name' => $request->name,
+            'lastname' => $request->lastname,
             'email' => $request->email,
             'phone' => $request->phone,
             'photo' => $image_name,
@@ -137,6 +140,9 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'user' => $user,
         ]);
+    }
+    public function getRole(User $user){
+        return response()->json(["users"=>$user->roleById()], 200);
     }
     public function logout()
     {

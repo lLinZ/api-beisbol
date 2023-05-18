@@ -27,12 +27,17 @@ Route::post('register', [AuthController::class, 'register']);
 // Ruta de logeo de usuarios
 Route::post('login', [AuthController::class, 'login']);
 
+Route::get('users/roles', [AuthController::class, 'getRole']);
 Route::get('roles', [RoleController::class, 'index']);
 Route::post('roles', [RoleController::class, 'create']);
 Route::put('roles/{role}', [RoleController::class, 'update']);
 // Rutas protegidas
 Route::middleware(['auth:sanctum'])->group(function () {
 
+    // Ruta de registro de administrador
+    Route::post('admin/register', [AuthController::class, 'register_admin']);
+    // Ruta de registro de jugador
+    Route::post('player/register', [AuthController::class, 'register_player']);
     // Cerrar sesion
     Route::get('logout', [AuthController::class, 'logout']);
 

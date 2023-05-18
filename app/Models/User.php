@@ -11,9 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public function roles()
+    public function roleById()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class, 'id', 'role_id');
     }
     /**
      * The attributes that are mass assignable.
