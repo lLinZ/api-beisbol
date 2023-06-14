@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -144,9 +143,9 @@ class AuthController extends Controller
     public function getRole(User $user){
         return response()->json(["users"=>$user->roleById()], 200);
     }
-    public function logout()
+    public function logout(User $user)
     {
-        auth()->user()->tokens()->delete();
+        $user->tokens()->delete();
         return [
             'message' => 'Has cerrado sesion exitosamente'
         ];
