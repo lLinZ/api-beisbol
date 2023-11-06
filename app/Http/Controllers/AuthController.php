@@ -290,7 +290,7 @@ class AuthController extends Controller
         ];
     }
 
-    public function edit_user(Request $request, User $user)
+    public function edit_user_data(Request $request, User $user)
     {
 
         if ($request->password != $request->confirmarPassword) {

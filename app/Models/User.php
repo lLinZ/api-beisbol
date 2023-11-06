@@ -22,11 +22,17 @@ class User extends Authenticatable
         return $this->belongsTo(Status::class);
     }
 
+<<<<<<< HEAD
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
+=======
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+>>>>>>> 5df66663ae29e92cf8b17d9440820b7d7a88a431
     /**
      * The attributes that are mass assignable.
      *
