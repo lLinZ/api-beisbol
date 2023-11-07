@@ -15,13 +15,11 @@ class AuthController extends Controller
 
     public function get_all_users(Request $request)
     {
-
         $users = User::with('role')->whereHas('status', function ($query) {
             $query->where('description', 'Activo');
         })->whereHas('role', function ($query) {
             $query->where('description', 'Cliente');
         })->get();
-
         return response()->json(['status' => true, 'data' => $users]);
     }
     public function get_logged_user_data(Request $request)
@@ -204,7 +202,7 @@ class AuthController extends Controller
             return response()->json(['data' => $user, 'token' => $token, 'token_type' => 'Bearer', 'status' => true]);
         } catch (\Throwable $th) {
             //throw $th;
-            return response()->json(['status' => false, 'errors' => ['No se logro crear el master', $th->getMessage()]], 400);
+            return response()->json(['status' => false, 'errors' => ['No se logro crear el master', $th->getMessage(), $th->getTrace()]], 400);
         }
     }
     public function register_master(Request $request)
